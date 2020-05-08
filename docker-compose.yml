@@ -19,6 +19,11 @@ services:
       - media:/data/media
     command: /start.sh
     env_file: .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "400m"
+        max-file: "5"
 
   django-b:
     build:
@@ -33,6 +38,11 @@ services:
       - media:/data/media
     command: /start.sh
     env_file: .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "400m"
+        max-file: "5"
 
   postgres:
     build: ./compose/postgres
@@ -40,6 +50,11 @@ services:
       - /data/djangopackages/postgres:/var/lib/postgresql/data
       - /data/djangopackages/backups:/backups
     env_file: .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "600m"
+        max-file: "5"
 
   caddy:
     build: ./compose/caddy
@@ -54,6 +69,17 @@ services:
       - "80:80"
       - "443:443"
     env_file: .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "600m"
+        max-file: "5"
 
   redis:
     build: ./compose/redis
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+
